@@ -22,7 +22,7 @@ class Scroller {
   start() {
     this.renderer.resize();
     this.bitmap = this.renderer.buildTextBitmap(this.text, this.fontSize);
-    this.offsetX = this.dir === 'rtl' ? -this.renderer.w : this.bitmap.width;
+    this.offsetX = 0;
     this._blinkLastToggle = performance.now();
     this._loop();
   }
