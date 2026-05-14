@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const startBtn = document.getElementById('start-btn');
 
   let selectedColor = '#00ff41';
-  let selectedDir = 'rtl';
+  let selectedDir = 'ltr';
   let scroller = null;
   let hintTimer = null;
 
