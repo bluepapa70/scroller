@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>전광판 LED Scroller</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- 설정 화면 -->
+  <div id="settings-screen">
+    <h1 class="app-title">전광판 LED</h1>
+
+    <div class="section">
+      <label class="section-label" for="input-text">문자 입력</label>
+      <textarea id="input-text" placeholder="문자를 입력하세요" rows="3">Hello!</textarea>
+    </div>
+
+    <div class="section">
+      <label class="section-label">글씨 색상</label>
+      <div id="color-palette">
+        <button type="button" class="color-btn selected color-pink"   data-color="#ff2d78" aria-label="핑크"></button>
+        <button type="button" class="color-btn color-green"  data-color="#00ff41" aria-label="초록"></button>
+        <button type="button" class="color-btn color-yellow" data-color="#ffe600" aria-label="노랑"></button>
+        <button type="button" class="color-btn color-cyan"   data-color="#00e5ff" aria-label="시안"></button>
+        <button type="button" class="color-btn color-white"  data-color="#ffffff" aria-label="흰색"></button>
+        <button type="button" class="color-btn color-orange" data-color="#ff7700" aria-label="주황"></button>
+      </div>
+    </div>
+
+    <div class="section">
+      <label class="section-label" for="size-range">글씨 크기 <span id="size-val">2x</span></label>
+      <input type="range" id="size-range" min="1" max="5" value="2" title="글씨 크기">
+    </div>
+
+    <div class="section">
+      <label class="section-label" for="speed-range">스크롤 속도 <span id="speed-val">5</span></label>
+      <input type="range" id="speed-range" min="1" max="10" value="5" title="스크롤 속도">
+    </div>
+
+    <button type="button" id="start-btn">▶ 시작</button>
+  </div>
+
+  <!-- 전광판 화면 -->
+  <div id="led-screen" hidden>
+    <canvas id="led-canvas"></canvas>
+    <div id="tap-hint">화면을 탭하면 돌아갑니다</div>
+  </div>
+
+  <script src="js/led.js"></script>
+  <script src="js/scroller.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
