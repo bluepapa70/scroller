@@ -128,7 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // 전광판 화면 탭 → 설정으로 복귀
   ledScreen.addEventListener('click', hideLed);
 
-  // 기기 방향 변경 시 canvas 재조정
+  // canvas 재조정 (전광판 표시 중 크기 변경 시)
   window.addEventListener('resize', () => {
     if (!ledScreen.hidden && scroller) {
       scroller.stop();
@@ -148,6 +148,16 @@ document.addEventListener('DOMContentLoaded', () => {
         dir: selectedDir,
       });
       scroller.start();
+    }
+  });
+
+  // 가로 모드 전환 시 자동 전체화면, 세로 모드 복귀 시 설정 화면으로
+  const landscapeQuery = window.matchMedia('(orientation: landscape)');
+  landscapeQuery.addEventListener('change', e => {
+    if (e.matches && ledScreen.hidden) {
+      showLed();
+    } else if (!e.matches && !ledScreen.hidden) {
+      hideLed();
     }
   });
 });
