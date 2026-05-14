@@ -7,17 +7,23 @@ class Scroller {
     this.color = options.color;
     this.fontSize = options.fontSize;
     this.speed = options.speed;
+    this.blink = options.blink || false;
+    this.dir = options.dir || 'rtl'; // 'rtl': 우→좌, 'ltr': 좌→우
 
     this.offsetX = 0;
     this.bitmap = null;
     this.rafId = null;
+    this._blinkOn = true;
+    this._blinkLastToggle = 0;
+    // speed 1 → 1000ms, speed 10 → 100ms
+    this._blinkInterval = 1100 - (options.blinkSpeed || 5) * 100;
   }
 
   start() {
     this.renderer.resize();
     this.bitmap = this.renderer.buildTextBitmap(this.text, this.fontSize);
-    // 텍스트가 오른쪽 끝에서 시작
-    this.offsetX = -this.renderer.w;
+    this.offsetX = this.dir === 'rtl' ? -this.renderer.w : this.bitmap.width;
+    this._blinkLastToggle = performance.now();
     this._loop();
   }
 
@@ -29,13 +35,32 @@ class Scroller {
   }
 
   _loop() {
-    this.offsetX += this.speed;
-    // 텍스트 전체가 왼쪽으로 사라지면 오른쪽 끝으로 리셋
-    if (this.offsetX > this.bitmap.width) {
-      this.offsetX = -this.renderer.w;
+    if (this.dir === 'rtl') {
+      this.offsetX += this.speed;
+      if (this.offsetX > this.bitmap.width) {
+        this.offsetX = -this.renderer.w;
+      }
+    } else {
+      this.offsetX -= this.speed;
+      if (this.offsetX < -this.renderer.w) {
+        this.offsetX = this.bitmap.width;
+      }
     }
 
-    this.renderer.draw(this.bitmap.pixels, this.bitmap.width, this.offsetX, this.color);
+    if (this.blink) {
+      const now = performance.now();
+      if (now - this._blinkLastToggle >= this._blinkInterval) {
+        this._blinkOn = !this._blinkOn;
+        this._blinkLastToggle = now;
+      }
+    }
+
+    if (!this.blink || this._blinkOn) {
+      this.renderer.draw(this.bitmap.pixels, this.bitmap.width, this.offsetX, this.color);
+    } else {
+      this.renderer.clear();
+    }
+
     this.rafId = requestAnimationFrame(() => this._loop());
   }
 }

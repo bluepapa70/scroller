@@ -93,4 +93,11 @@ class LedRenderer {
 
     ctx.shadowBlur = 0;
   }
+
+  clear() {
+    const ctx = this.ctx;
+    ctx.clearRect(0, 0, this.w, this.h);
+    ctx.fillStyle = '#000000';
+    ctx.fillRect(0, 0, this.w, this.h);
+  }
 }

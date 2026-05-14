@@ -3,14 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>전광판 LED Scroller</title>
+  <title>Bluepapa Scroller</title>
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&display=swap">
 </head>
 <body>
 
   <!-- 설정 화면 -->
   <div id="settings-screen">
-    <h1 class="app-title">전광판 LED</h1>
+    <h1 class="app-title">Bluepapa's Scroller</h1>
 
     <div class="section">
       <label class="section-label" for="input-text">문자 입력</label>
@@ -37,6 +38,27 @@
     <div class="section">
       <label class="section-label" for="speed-range">스크롤 속도 <span id="speed-val">5</span></label>
       <input type="range" id="speed-range" min="1" max="10" value="5" title="스크롤 속도">
+    </div>
+
+    <div class="section">
+      <label class="section-label">스크롤 방향</label>
+      <div class="dir-group">
+        <button type="button" class="dir-btn selected" data-dir="rtl">← 우측에서 좌측</button>
+        <button type="button" class="dir-btn" data-dir="ltr">우측으로 →</button>
+      </div>
+    </div>
+
+    <div class="section">
+      <label class="section-label">깜빡임</label>
+      <label class="toggle">
+        <input type="checkbox" id="blink-toggle">
+        <span class="toggle-slider"></span>
+      </label>
+    </div>
+
+    <div class="section" id="blink-speed-section" hidden>
+      <label class="section-label" for="blink-speed-range">깜빡임 속도 <span id="blink-speed-val">5</span></label>
+      <input type="range" id="blink-speed-range" min="1" max="10" value="5" title="깜빡임 속도">
     </div>
 
     <button type="button" id="start-btn">▶ 시작</button>

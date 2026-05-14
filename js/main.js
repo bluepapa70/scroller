@@ -12,9 +12,15 @@ document.addEventListener('DOMContentLoaded', () => {
   const sizeVal = document.getElementById('size-val');
   const speedRange = document.getElementById('speed-range');
   const speedVal = document.getElementById('speed-val');
+  const blinkToggle = document.getElementById('blink-toggle');
+  const blinkSpeedSection = document.getElementById('blink-speed-section');
+  const blinkSpeedRange = document.getElementById('blink-speed-range');
+  const blinkSpeedVal = document.getElementById('blink-speed-val');
+  const dirBtns = document.querySelectorAll('.dir-btn');
   const startBtn = document.getElementById('start-btn');
 
   let selectedColor = '#ff2d78';
+  let selectedDir = 'rtl';
   let scroller = null;
   let hintTimer = null;
 
@@ -34,6 +40,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
   speedRange.addEventListener('input', () => {
     speedVal.textContent = speedRange.value;
+  });
+
+  // 방향 선택
+  dirBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      dirBtns.forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      selectedDir = btn.dataset.dir;
+    });
+  });
+
+  // 깜빡임 토글 → 속도 슬라이더 표시/숨김
+  blinkToggle.addEventListener('change', () => {
+    blinkSpeedSection.hidden = !blinkToggle.checked;
+  });
+
+  blinkSpeedRange.addEventListener('input', () => {
+    blinkSpeedVal.textContent = blinkSpeedRange.value;
   });
 
   // 시작
@@ -72,6 +96,9 @@ document.addEventListener('DOMContentLoaded', () => {
       color: selectedColor,
       fontSize,
       speed,
+      blink: blinkToggle.checked,
+      blinkSpeed: parseInt(blinkSpeedRange.value, 10),
+      dir: selectedDir,
     });
     scroller.start();
 
@@ -116,6 +143,9 @@ document.addEventListener('DOMContentLoaded', () => {
         color: selectedColor,
         fontSize,
         speed,
+        blink: blinkToggle.checked,
+        blinkSpeed: parseInt(blinkSpeedRange.value, 10),
+        dir: selectedDir,
       });
       scroller.start();
     }

@@ -33,11 +33,13 @@ body {
 }
 
 .app-title {
-  font-size: 1.6rem;
-  font-weight: 700;
-  letter-spacing: -0.5px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 900;
+  letter-spacing: 2px;
   text-align: center;
   color: var(--color-accent);
+  text-shadow: 0 0 12px var(--color-accent), 0 0 24px var(--color-accent);
 }
 
 .section {
@@ -112,6 +114,77 @@ input[type="range"] {
   accent-color: var(--color-accent);
   cursor: pointer;
   height: 6px;
+}
+
+/* 방향 버튼 그룹 */
+
+.dir-group {
+  display: flex;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+}
+
+.dir-btn {
+  flex: 1;
+  padding: 10px 8px;
+  background: var(--color-surface);
+  color: var(--color-muted);
+  border: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.dir-btn + .dir-btn {
+  border-left: 1px solid var(--color-border);
+}
+
+.dir-btn.selected {
+  background: var(--color-accent);
+  color: #fff;
+}
+
+/* 깜빡임 토글 */
+
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.toggle input {
+  display: none;
+}
+
+.toggle-slider {
+  width: 52px;
+  height: 28px;
+  background: var(--color-border);
+  border-radius: 14px;
+  position: relative;
+  transition: background 0.2s;
+}
+
+.toggle-slider::after {
+  content: '';
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  background: #fff;
+  border-radius: 50%;
+  top: 3px;
+  left: 3px;
+  transition: transform 0.2s;
+}
+
+.toggle input:checked + .toggle-slider {
+  background: var(--color-accent);
+}
+
+.toggle input:checked + .toggle-slider::after {
+  transform: translateX(24px);
 }
 
 /* 시작 버튼 */
