@@ -6,6 +6,10 @@
   <title>Free Scroller</title>
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&display=swap">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#00ff41">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 </head>
 <body>
 
@@ -62,6 +66,11 @@
     </div>
 
     <button type="button" id="start-btn">▶ 시작</button>
+
+    <button type="button" id="install-btn" hidden>홈화면에 추가</button>
+    <div id="ios-hint" hidden>
+      Safari 하단의 <strong>공유</strong> 버튼을 탭한 후<br><strong>홈 화면에 추가</strong>를 선택하세요.
+    </div>
 
     <p class="copyright">© bluepapa</p>
   </div>

@@ -160,4 +160,41 @@ document.addEventListener('DOMContentLoaded', () => {
       hideLed();
     }
   });
+
+  // 홈화면에 추가
+  const installBtn = document.getElementById('install-btn');
+  const iosHint = document.getElementById('ios-hint');
+  const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+
+  if (!isStandalone) {
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+    if (isIOS) {
+      installBtn.hidden = false;
+      installBtn.addEventListener('click', () => {
+        iosHint.hidden = !iosHint.hidden;
+      });
+    } else {
+      let deferredPrompt = null;
+      window.addEventListener('beforeinstallprompt', e => {
+        e.preventDefault();
+        deferredPrompt = e;
+        installBtn.hidden = false;
+      });
+      installBtn.addEventListener('click', async () => {
+        if (!deferredPrompt) return;
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        if (outcome === 'accepted') installBtn.hidden = true;
+        deferredPrompt = null;
+      });
+      window.addEventListener('appinstalled', () => {
+        installBtn.hidden = true;
+      });
+    }
+  }
+
+  // 서비스워커 등록
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./sw.js').catch(() => {});
+  }
 });
